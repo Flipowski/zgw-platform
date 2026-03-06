@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openzaak
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://maykinmedia.github.io/charts/
+      chart: openzaak
+      targetRevision: "1.14.0-rc.0"
+      helm:
+        valueFiles:
+          - $values/values/openzaak.yaml
+    - repoURL: https://github.com/Flipowski/zgw-platform
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openzaak
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

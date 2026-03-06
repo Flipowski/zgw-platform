@@ -1,0 +1,66 @@
+replicaCount: 2
+
+image:
+  tag: "1.14.0"
+
+# Verwijs naar een bestaand Secret met de sleutels:
+#   SECRET_KEY   - Django geheime sleutel (genereer op https://djecrety.ir/)
+#   DB_PASSWORD  - PostgreSQL wachtwoord (zelfde als in secrets/opennotificaties-db-credentials.yaml)
+existingSecret: "opennotificaties-secrets"
+
+settings:
+  allowedHosts: "notificaties.foundationlayer.nl"
+  isHttps: true
+  useXForwardedHost: true
+  numProxies: 1
+  siteDomain: "notificaties.foundationlayer.nl"
+  logNotifications: true
+
+  database:
+    host: "opennotificaties-postgres-rw.postgresql.svc.cluster.local"
+    port: 5432
+    name: "opennotificaties"
+    username: "opennotificaties"
+    # password komt uit existingSecret (sleutel: DB_PASSWORD)
+    sslmode: prefer
+
+  # cache en celery/rabbitmq worden automatisch ingevuld door de subcharts
+  cache:
+    default: ""
+    axes: ""
+  celery:
+    brokerUrl: ""
+    resultBackend: ""
+    publishBrokerUrl: ""
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: notificaties.foundationlayer.nl
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: opennotificaties-tls
+      hosts:
+        - notificaties.foundationlayer.nl
+
+worker:
+  replicaCount: 2
+
+redis:
+  master:
+    persistence:
+      size: 2Gi
+
+rabbitmq:
+  auth:
+    username: opennotificaties
+    password: "dummy"  # wordt overschreven via existingPasswordSecret
+    existingPasswordSecret: "opennotificaties-rabbitmq"
+    existingErlangSecret: "opennotificaties-rabbitmq"
+  persistence:
+    enabled: false

@@ -1,0 +1,25 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: objecten-postgres
+  namespace: postgresql
+spec:
+  instances: 2
+
+  postgresql:
+    parameters:
+      max_connections: "200"
+      shared_buffers: "256MB"
+
+  bootstrap:
+    initdb:
+      database: objecten
+      owner: objecten
+      secret:
+        name: objecten-db-credentials
+
+  storage:
+    size: 5Gi
+
+  monitoring:
+    enablePodMonitor: false

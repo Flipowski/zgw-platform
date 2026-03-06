@@ -1,0 +1,54 @@
+replicaCount: 2
+
+image:
+  tag: "2.2.2"
+
+# Verwijs naar een bestaand Secret met de sleutels:
+#   SECRET_KEY   - Django geheime sleutel (genereer op https://djecrety.ir/)
+#   DB_PASSWORD  - PostgreSQL wachtwoord (zelfde als in secrets/objecttypen-db-credentials.yaml)
+existingSecret: "objecttypen-secrets"
+
+settings:
+  allowedHosts: "objecttypen.foundationlayer.nl"
+  isHttps: true
+  useXForwardedHost: true
+  numProxies: 1
+  siteDomain: "objecttypen.foundationlayer.nl"
+
+  database:
+    host: "objecttypen-postgres-rw.postgresql.svc.cluster.local"
+    port: 5432
+    name: "objecttypen"
+    username: "objecttypen"
+    # password komt uit existingSecret (sleutel: DB_PASSWORD)
+    sslmode: prefer
+
+  cache:
+    default: ""
+    axes: ""
+  celery:
+    brokerUrl: ""
+    resultBackend: ""
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: objecttypen.foundationlayer.nl
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: objecttypen-tls
+      hosts:
+        - objecttypen.foundationlayer.nl
+
+worker:
+  replicaCount: 2
+
+redis:
+  master:
+    persistence:
+      size: 2Gi

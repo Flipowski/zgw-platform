@@ -1,0 +1,32 @@
+global:
+  domain: argocd.foundationlayer.nl
+
+configs:
+  params:
+    server.insecure: false
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+    hosts:
+      - argocd.foundationlayer.nl
+    tls:
+      - secretName: argocd-tls
+        hosts:
+          - argocd.foundationlayer.nl
+
+repoServer:
+  replicaCount: 2
+
+applicationSet:
+  replicaCount: 2
+
+redis:
+  master:
+    persistence:
+      size: 4Gi
