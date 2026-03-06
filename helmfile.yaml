@@ -1,0 +1,45 @@
+repositories:
+  - name: cnpg
+    url: https://cloudnative-pg.github.io/charts
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
+  - name: jetstack
+    url: https://charts.jetstack.io
+
+helmDefaults:
+  wait: true
+  waitForJobs: true
+  timeout: 600
+  cleanupOnFail: true
+
+releases:
+  # ─── Bootstrap: Operators & GitOps ─────────────────────────────────────────
+  # Na 'helmfile apply' hier:
+  #   1. kubectl apply -f secrets/
+  #   2. kubectl apply -f argocd/app-of-apps.yaml
+  # ArgoCD beheert daarna alles vanuit GitHub.
+
+  - name: cnpg
+    namespace: cnpg-system
+    createNamespace: true
+    chart: cnpg/cloudnative-pg
+    version: "0.23.0"
+
+  - name: cert-manager
+    namespace: cert-manager
+    createNamespace: true
+    chart: jetstack/cert-manager
+    version: "v1.17.1"
+    values:
+      - values/cert-manager.yaml
+
+  - name: argocd
+    namespace: argocd
+    createNamespace: true
+    chart: argo/argo-cd
+    version: "7.8.23"
+    values:
+      - values/argocd.yaml
+    needs:
+      - cnpg-system/cnpg
+      - cert-manager/cert-manager

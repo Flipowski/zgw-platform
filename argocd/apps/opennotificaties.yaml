@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: opennotificaties
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://maykinmedia.github.io/charts/
+      chart: opennotificaties
+      targetRevision: "1.13.1"
+      helm:
+        valueFiles:
+          - $values/values/opennotificaties.yaml
+    - repoURL: https://github.com/Flipowski/zgw-platform
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: opennotificaties
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

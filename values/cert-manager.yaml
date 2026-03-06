@@ -1,0 +1,4 @@
+crds:
+  enabled: true
+
+# ClusterIssuer wordt aangemaakt via kubectl na installatie (zie bootstrap/cluster-issuer.yaml)
