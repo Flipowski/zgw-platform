@@ -9,6 +9,7 @@ image:
 existingSecret: "openzaak-secrets"
 
 settings:
+  disable2fa: true
   allowedHosts: "openzaak.foundationlayer.nl"
   isHttps: true
   useXForwardedHost: true

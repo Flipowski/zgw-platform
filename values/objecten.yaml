@@ -9,6 +9,7 @@ image:
 existingSecret: "objecten-secrets"
 
 settings:
+  disable2fa: true
   allowedHosts: "objecten.foundationlayer.nl"
   isHttps: true
   useXForwardedHost: true

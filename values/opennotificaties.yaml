@@ -9,6 +9,7 @@ image:
 existingSecret: "opennotificaties-secrets"
 
 settings:
+  disable2fa: true
   allowedHosts: "notificaties.foundationlayer.nl"
   isHttps: true
   useXForwardedHost: true
