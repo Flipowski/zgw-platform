@@ -7,8 +7,6 @@ spec:
   instances: 2
   imageName: ghcr.io/cloudnative-pg/postgis:17
   enableSuperuserAccess: true
-  superuserSecret:
-    name: openzaak-postgres-superuser
 
   postgresql:
     parameters:
