@@ -5,6 +5,7 @@ metadata:
   namespace: postgresql
 spec:
   instances: 2
+  imageName: ghcr.io/cloudnative-pg/postgis:17
 
   postgresql:
     parameters:
@@ -17,6 +18,8 @@ spec:
       owner: objecten
       secret:
         name: objecten-db-credentials
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS postgis;
 
   storage:
     size: 5Gi
