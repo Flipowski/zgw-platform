@@ -6,6 +6,8 @@ metadata:
 spec:
   instances: 2
   imageName: ghcr.io/cloudnative-pg/postgis:17
+  superuserSecret:
+    name: openzaak-postgres-superuser
 
   postgresql:
     parameters:
