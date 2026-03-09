@@ -58,7 +58,6 @@ configuration:
   overwrite: true
   superuser:
     username: admin
-    password: "Lru7d9FnKGgfFZ-AA6lBpg"
     email: admin@foundationlayer.nl
   job:
     enabled: true
