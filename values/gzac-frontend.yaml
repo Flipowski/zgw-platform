@@ -16,7 +16,7 @@ settings:
   keycloak:
     url: https://keycloak.foundationlayer.nl
     clientID: valtimo-console
-    realm: valtimo
+    realm: gzac
     redirectURL: https://gzac.foundationlayer.nl/keycloak/callback
     logoutRedirectURL: https://gzac.foundationlayer.nl
 

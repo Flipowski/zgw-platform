@@ -28,13 +28,13 @@ settings:
     # Publiek beschikbare Keycloak URL
     authServerURL: https://keycloak.foundationlayer.nl
     # Realm naam — moet aangemaakt worden in Keycloak admin console
-    realm: valtimo
+    realm: gzac
     clientID: valtimo-user-m2m-client
     clientRoleID: valtimo-console
     version: "26"
     httpRelativePath: ""
     # RSA public key van het realm — haal op via:
-    # Keycloak admin → realm valtimo → Realm settings → Keys → rsa-generated (SIG) → Public key
+    # Keycloak admin → realm gzac → Realm settings → Keys → rsa-generated (SIG) → Public key
     publicKey: ""
 
   gzac:
