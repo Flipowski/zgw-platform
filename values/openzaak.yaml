@@ -50,6 +50,9 @@ ingress:
 worker:
   replicaCount: 2
 
+persistence:
+  existingClaim: openzaak-media
+
 redis:
   master:
     persistence:

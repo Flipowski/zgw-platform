@@ -48,6 +48,9 @@ ingress:
 worker:
   replicaCount: 2
 
+persistence:
+  existingClaim: objecten-media
+
 redis:
   master:
     persistence:

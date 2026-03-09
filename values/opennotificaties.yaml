@@ -51,6 +51,9 @@ ingress:
 worker:
   replicaCount: 2
 
+persistence:
+  existingClaim: opennotificaties-media
+
 redis:
   master:
     persistence:
