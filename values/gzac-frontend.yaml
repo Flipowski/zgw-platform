@@ -1,0 +1,36 @@
+replicaCount: 1
+
+# LET OP: de gzac-frontend chart vereist een custom image.
+# Gebruik de gzac-frontend-template van:
+#   https://github.com/generiekzaakafhandelcomponent/gzac-frontend-template
+# Bouw en publiceer je eigen image, en pas onderstaande repository/tag aan.
+image:
+  repository: ritense/valtimo-frontend
+  tag: "13.12.0"
+
+settings:
+  # URL van de GZAC backend API
+  apiURL: https://gzac-api.foundationlayer.nl
+  whitelistedDomain: gzac-api.foundationlayer.nl
+
+  keycloak:
+    url: https://keycloak.foundationlayer.nl
+    clientID: valtimo-console
+    realm: valtimo
+    redirectURL: https://gzac.foundationlayer.nl/keycloak/callback
+    logoutRedirectURL: https://gzac.foundationlayer.nl
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: gzac.foundationlayer.nl
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: gzac-tls
+      hosts:
+        - gzac.foundationlayer.nl

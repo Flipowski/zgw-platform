@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gzac-frontend
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://generiekzaakafhandelcomponent.github.io/helm-charts
+      chart: gzac-frontend
+      targetRevision: "0.1.18"
+      helm:
+        valueFiles:
+          - $values/values/gzac-frontend.yaml
+    - repoURL: https://github.com/Flipowski/zgw-platform
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gzac
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

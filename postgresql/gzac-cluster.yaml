@@ -1,0 +1,27 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: gzac-postgres
+  namespace: postgresql
+spec:
+  instances: 2
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  enableSuperuserAccess: true
+
+  postgresql:
+    parameters:
+      max_connections: "200"
+      shared_buffers: "256MB"
+
+  bootstrap:
+    initdb:
+      database: gzac
+      owner: gzac
+      secret:
+        name: gzac-db-credentials
+
+  storage:
+    size: 10Gi
+
+  monitoring:
+    enablePodMonitor: false

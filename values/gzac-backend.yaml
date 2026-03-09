@@ -1,0 +1,68 @@
+replicaCount: 1
+
+# Schakel de ingebouwde subcharts uit — we gebruiken CNPG en externe Keycloak
+tags:
+  postgresql: false
+  keycloak: false
+
+image:
+  repository: ritense/gzac-backend
+  tag: "13.12.0"
+
+# Verwijs naar een bestaand Secret met de sleutels:
+#   DB_PASSWORD                                                        - database wachtwoord
+#   KEYCLOAK_CREDENTIALS_SECRET                                        - Keycloak client secret
+#   SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAKAPI_CLIENTSECRET - idem
+#   VALTIMO_CONNECTORENCRYPTION_SECRET                                 - willekeurige string
+#   VALTIMO_PLUGIN_ENCRYPTIONSECRET                                    - exact 16/24/32 tekens
+#   OPERATON_BPM_ADMINUSER_PASSWORD                                    - Operaton admin wachtwoord
+existingSecret: gzac-secrets
+
+settings:
+  spring:
+    datasource:
+      url: jdbc:postgresql://gzac-postgres-rw.postgresql.svc.cluster.local:5432/gzac
+      username: gzac
+
+  keycloak:
+    # Publiek beschikbare Keycloak URL
+    authServerURL: https://keycloak.foundationlayer.nl
+    # Realm naam — moet aangemaakt worden in Keycloak admin console
+    realm: valtimo
+    clientID: valtimo-user-m2m-client
+    clientRoleID: valtimo-console
+    version: "26"
+    httpRelativePath: ""
+    # RSA public key van het realm — haal op via:
+    # Keycloak admin → realm valtimo → Realm settings → Keys → rsa-generated (SIG) → Public key
+    publicKey: ""
+
+  gzac:
+    databaseType: postgres
+    appHostName: https://gzac-api.foundationlayer.nl
+    serverPort: 8080
+
+  operaton:
+    adminUserID: admin
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - gzac-api.foundationlayer.nl
+  tls:
+    - secretName: gzac-api-tls
+      hosts:
+        - gzac-api.foundationlayer.nl
+
+# Injecteer het DB-wachtwoord uit het secret als Spring Boot env var
+extraEnvVars:
+  - name: SPRING_DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: gzac-secrets
+        key: DB_PASSWORD
+  - name: CSRF_TRUSTED_ORIGINS
+    value: "https://gzac-api.foundationlayer.nl,https://gzac.foundationlayer.nl"
