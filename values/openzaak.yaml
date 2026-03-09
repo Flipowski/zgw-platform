@@ -48,6 +48,10 @@ ingress:
       hosts:
         - openzaak.foundationlayer.nl
 
+extraEnvVars:
+  - name: CSRF_TRUSTED_ORIGINS
+    value: "https://openzaak.foundationlayer.nl"
+
 worker:
   replicaCount: 2
 

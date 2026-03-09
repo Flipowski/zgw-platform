@@ -46,6 +46,10 @@ ingress:
       hosts:
         - objecten.foundationlayer.nl
 
+extraEnvVars:
+  - name: CSRF_TRUSTED_ORIGINS
+    value: "https://objecten.foundationlayer.nl"
+
 worker:
   replicaCount: 2
 

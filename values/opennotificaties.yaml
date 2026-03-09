@@ -49,6 +49,10 @@ ingress:
       hosts:
         - notificaties.foundationlayer.nl
 
+extraEnvVars:
+  - name: CSRF_TRUSTED_ORIGINS
+    value: "https://notificaties.foundationlayer.nl"
+
 worker:
   replicaCount: 2
 
