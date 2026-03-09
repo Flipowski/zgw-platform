@@ -53,6 +53,43 @@ worker:
 persistence:
   existingClaim: openzaak-media
 
+configuration:
+  enabled: true
+  overwrite: true
+  superuser:
+    username: admin
+    password: "Lru7d9FnKGgfFZ-AA6lBpg"
+    email: admin@foundationlayer.nl
+  job:
+    enabled: true
+  secrets:
+    openzaak_notif_token: openzaak-secrets
+  data: |-
+    sites_config_enable: true
+    sites_config:
+      items:
+        - domain: openzaak.foundationlayer.nl
+          name: Open Zaak
+    zgw_consumers_config_enable: true
+    zgw_consumers:
+      services:
+        - identifier: notifications-api
+          label: Notificaties API
+          api_root: https://notificaties.foundationlayer.nl/api/v1/
+          api_connection_check_path: notificaties
+          api_type: nrc
+          auth_type: api_key
+          header_key: Authorization
+          header_value:
+            value_from:
+              env: openzaak_notif_token
+    notifications_config_enable: true
+    notifications_config:
+      notifications_api_service_identifier: notifications-api
+      notification_delivery_max_retries: 3
+      notification_delivery_retry_backoff: 3
+      notification_delivery_retry_backoff_max: 48
+
 redis:
   master:
     persistence:

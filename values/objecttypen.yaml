@@ -52,3 +52,31 @@ redis:
   master:
     persistence:
       size: 2Gi
+
+configuration:
+  enabled: true
+  overwrite: true
+  superuser:
+    username: admin
+    password: "VIwfUew0Gq9hdGxRnc_uVQ"
+    email: admin@foundationlayer.nl
+  job:
+    enabled: true
+  secrets:
+    objecten_objecttypen_token: objecttypen-secrets
+  data: |-
+    sites_config_enable: true
+    sites_config:
+      items:
+        - domain: objecttypen.foundationlayer.nl
+          name: Objecttypen
+    tokenauth_config_enable: true
+    tokenauth:
+      items:
+        - identifier: objecten-token
+          token:
+            value_from:
+              env: objecten_objecttypen_token
+          contact_person: Admin
+          email: admin@foundationlayer.nl
+          organization: Foundation Layer

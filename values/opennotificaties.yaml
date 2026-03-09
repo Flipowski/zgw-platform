@@ -54,6 +54,42 @@ worker:
 persistence:
   existingClaim: opennotificaties-media
 
+configuration:
+  enabled: true
+  overwrite: true
+  superuser:
+    username: admin
+    password: "KqDGlUGH9uj64DGyqYAM9w"
+    email: admin@foundationlayer.nl
+  job:
+    enabled: true
+  secrets:
+    openzaak_notif_token: opennotificaties-secrets
+    objecten_notif_token: opennotificaties-secrets
+  data: |-
+    sites_config_enable: true
+    sites_config:
+      items:
+        - domain: notificaties.foundationlayer.nl
+          name: Open Notificaties
+    tokenauth_config_enable: true
+    tokenauth:
+      items:
+        - identifier: openzaak-token
+          token:
+            value_from:
+              env: openzaak_notif_token
+          contact_person: Admin
+          email: admin@foundationlayer.nl
+          organization: Foundation Layer
+        - identifier: objecten-token
+          token:
+            value_from:
+              env: objecten_notif_token
+          contact_person: Admin
+          email: admin@foundationlayer.nl
+          organization: Foundation Layer
+
 redis:
   master:
     persistence:

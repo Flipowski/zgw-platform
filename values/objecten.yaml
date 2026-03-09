@@ -51,6 +51,54 @@ worker:
 persistence:
   existingClaim: objecten-media
 
+configuration:
+  enabled: true
+  overwrite: true
+  superuser:
+    username: admin
+    password: "yXTDtH2xVZCnMTyaEbzCkw"
+    email: admin@foundationlayer.nl
+  job:
+    enabled: true
+  secrets:
+    objecten_notif_token: objecten-secrets
+    objecten_objecttypen_token: objecten-secrets
+  data: |-
+    sites_config_enable: true
+    sites_config:
+      items:
+        - domain: objecten.foundationlayer.nl
+          name: Objecten
+    zgw_consumers_config_enable: true
+    zgw_consumers:
+      services:
+        - identifier: objecttypen-api
+          label: Objecttypen API
+          api_root: https://objecttypen.foundationlayer.nl/api/v2/
+          api_connection_check_path: objecttypes
+          api_type: orc
+          auth_type: api_key
+          header_key: Authorization
+          header_value:
+            value_from:
+              env: objecten_objecttypen_token
+        - identifier: notifications-api
+          label: Notificaties API
+          api_root: https://notificaties.foundationlayer.nl/api/v1/
+          api_connection_check_path: notificaties
+          api_type: nrc
+          auth_type: api_key
+          header_key: Authorization
+          header_value:
+            value_from:
+              env: objecten_notif_token
+    notifications_config_enable: true
+    notifications_config:
+      notifications_api_service_identifier: notifications-api
+      notification_delivery_max_retries: 3
+      notification_delivery_retry_backoff: 3
+      notification_delivery_retry_backoff_max: 48
+
 redis:
   master:
     persistence:
