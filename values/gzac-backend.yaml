@@ -38,7 +38,7 @@ settings:
     httpRelativePath: ""
     # RSA public key van het realm — haal op via:
     # Keycloak admin → realm gzac → Realm settings → Keys → rsa-generated (SIG) → Public key
-    publicKey: ""
+    publicKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApqc6wybFstv6PRkBmHtumeFtGjhFoSXh3IUbKqFpAthj7ah7uB9jciYaaeLjmHWggYgEueh2WLqzJW363yr/XtTq2HprSxebfdEhpQwTx1us4DdPBbnIgW9BpM/v41IsXzJWtX6Up7Qv8ULy/g4pjQiQo14zvxqQPtNNcCbIm2vsofZkD7E3Hdz6DtFKmo65vXbdHKljLCYo2Y2VzC0HVeWC2j9kPWM+wn7DXTbSYGUellkStCO5RjfNl70jlOFdNyjmUv/MDzdiQGQLf16HVO4PQuCD6B/HHhCaDl4jwGLzfsR2Z6LT4VuVBxH2CO0mqUkvd8xaFn6WkIM9oO8bpwIDAQAB"
 
   gzac:
     databaseType: postgres
