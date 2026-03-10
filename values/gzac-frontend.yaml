@@ -9,8 +9,8 @@ image:
   tag: "13.12.0"
 
 settings:
-  # URL van de GZAC backend API
-  apiURL: https://gzac-api.foundationlayer.nl
+  # URL van de GZAC backend API — inclusief /api prefix (ingress route)
+  apiURL: https://gzac-api.foundationlayer.nl/api
   whitelistedDomain: gzac-api.foundationlayer.nl
 
   keycloak:
