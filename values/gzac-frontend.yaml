@@ -9,8 +9,8 @@ image:
   tag: "13.12.0"
 
 settings:
-  # Zelfde origin als frontend — nginx in de container proxyt /api/* naar valtimo-backend (geen CORS)
-  apiURL: https://gzac.foundationlayer.nl
+  # /api prefix zorgt dat calls als /api/v1/... lopen — matcht nginx proxy rule /(api|...)
+  apiURL: https://gzac.foundationlayer.nl/api
   whitelistedDomain: gzac.foundationlayer.nl
 
   keycloak:
