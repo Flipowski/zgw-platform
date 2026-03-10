@@ -29,8 +29,8 @@ settings:
     authServerURL: https://keycloak.foundationlayer.nl
     # Realm naam — moet aangemaakt worden in Keycloak admin console
     realm: gzac
-    clientID: valtimo-user-m2m-client
-    clientRoleID: valtimo-console
+    clientID: gzac-user-m2m-client
+    clientRoleID: gzac-console
     version: "26"
     httpRelativePath: ""
     # RSA public key van het realm — haal op via:
