@@ -8,6 +8,10 @@ tags:
 # Zorg dat de K8s service "valtimo-backend" heet — de frontend nginx verwacht deze naam
 fullnameOverride: "valtimo-backend"
 
+# Service op port 8080 — nginx in de frontend proxyt naar valtimo-backend:8080
+service:
+  port: 8080
+
 image:
   repository: ritense/gzac-backend
   tag: "13.12.0"

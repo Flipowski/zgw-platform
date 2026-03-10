@@ -9,9 +9,9 @@ image:
   tag: "13.12.0"
 
 settings:
-  # URL van de GZAC backend API — inclusief /api prefix (ingress route)
-  apiURL: https://gzac-api.foundationlayer.nl/api
-  whitelistedDomain: gzac-api.foundationlayer.nl
+  # Zelfde origin als frontend — nginx in de container proxyt /api/* naar valtimo-backend (geen CORS)
+  apiURL: https://gzac.foundationlayer.nl
+  whitelistedDomain: gzac.foundationlayer.nl
 
   keycloak:
     url: https://keycloak.foundationlayer.nl
