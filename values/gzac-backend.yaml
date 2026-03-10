@@ -5,6 +5,9 @@ tags:
   postgresql: false
   keycloak: false
 
+# Zorg dat de K8s service "valtimo-backend" heet — de frontend nginx verwacht deze naam
+fullnameOverride: "valtimo-backend"
+
 image:
   repository: ritense/gzac-backend
   tag: "13.12.0"

@@ -137,7 +137,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: gzac-backend
+                name: valtimo-backend
                 port:
                   number: 80
 ---
