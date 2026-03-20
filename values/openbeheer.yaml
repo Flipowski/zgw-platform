@@ -1,6 +1,7 @@
 replicaCount: 2
 
 image:
+  repository: maykinmedia/open-beheer
   tag: "0.9.0"
 
 # Verwijs naar een bestaand Secret met de sleutels:
