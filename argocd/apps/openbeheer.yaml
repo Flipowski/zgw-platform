@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openbeheer
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://maykinmedia.github.io/charts/
+      chart: openbeheer
+      targetRevision: "0.1.3"
+      helm:
+        valueFiles:
+          - $values/values/openbeheer.yaml
+    - repoURL: https://github.com/Flipowski/zgw-platform
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openbeheer
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
